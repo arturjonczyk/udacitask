@@ -54,11 +54,17 @@ class Item
         @completed_status = false
     end
 
+    # changing status of the task
     def update_task_status(status)
         @completed_status = status
     end
 
+    # returning "true" if status is "done"
+    def completed?
+        @completed_status
+    end
+
     def print_task
-        "#{('"' + @description + '"').ljust(30, " ")} Completed: #{@completed_status}"
+        "#{('"' + @description + '"').ljust(30, " ")} Completed: #{ completed? ? "*done*" : "*not done*"}"
     end
 end
