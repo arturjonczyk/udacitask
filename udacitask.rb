@@ -25,13 +25,13 @@ list.delete_item(2)
 list.print_items
 
 # Update the completion status of the first item to complete
-list.update_status(1, true)
+list.update_item_status(1, true)
 
 # Print the list
 list.print_items
 
 # Update the title of the list
-list.update_title("Happy Learning List:")
+list.title = "Happy Learning List:"
 
 # Print the list
 list.print_items
