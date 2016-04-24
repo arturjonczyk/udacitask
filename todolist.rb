@@ -1,11 +1,14 @@
+require 'time'
+
 class TodoList
-    attr_accessor :title
+    attr_accessor :title, :items
     attr_reader :items
 
     # methods and stuff go here
     def initialize(list_title)
         @title = list_title
         @items = []
+        @sort_by = "time"
     end
 
     # add task to the list
@@ -29,6 +32,20 @@ class TodoList
         @items[n - 1].priority = @items[n - 1].priority ? false : true
     end
 
+    def sort_tasks_by_priority
+        @items.sort_by! { |task| [task.priority ? 0 : 1]}
+
+        # change sort method to sort_tasks_by_priority
+        @sort_by = "priority"
+    end
+
+    def sort_tasks_by_time_creation
+        @items.sort_by! { |task| task.time}
+
+        # change sort method to sort_tasks_by_time_creation
+        @sort_by = "time"
+    end
+
     # printing well formated title of the todo list
     def print_formated_list_title
         puts '-' * @title.length
@@ -41,6 +58,9 @@ class TodoList
         # printing title of the ToDo list
         print_formated_list_title
 
+        # checking the current sort method
+        @sort_by == "time" ? sort_tasks_by_time_creation : sort_tasks_by_priority
+
         # printing each task
         @items.each_with_index do |task, index|
             puts "#{index + 1} - #{task.print_task}"
@@ -50,7 +70,7 @@ end
 
 
 class Item
-    attr_accessor :completed_status, :priority
+    attr_accessor :completed_status, :priority, :time
     attr_reader :description
 
     # methods and stuff go here
@@ -58,6 +78,7 @@ class Item
         @description = description
         @completed_status = false
         @priority = priority
+        @time = Time.now
     end
 
     # changing status of the task
