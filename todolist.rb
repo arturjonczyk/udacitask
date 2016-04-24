@@ -9,8 +9,8 @@ class TodoList
     end
 
     # add task to the list
-    def add_item(new_item)
-        item = Item.new(new_item)
+    def add_item(new_item, priority=false)
+        item = Item.new(new_item, priority)
         @items << item
     end
 
@@ -22,6 +22,11 @@ class TodoList
     # changing status on specific task
     def update_item_status(index, status)
         @items[index - 1].update_task_status(status)
+    end
+
+    # change priority status of task: true or false
+    def change_priority_status(n)
+        @items[n - 1].priority = @items[n - 1].priority ? false : true
     end
 
     # printing well formated title of the todo list
@@ -45,13 +50,14 @@ end
 
 
 class Item
-    attr_accessor :completed_status
+    attr_accessor :completed_status, :priority
     attr_reader :description
 
     # methods and stuff go here
-    def initialize(description)
+    def initialize(description, priority)
         @description = description
         @completed_status = false
+        @priority = priority
     end
 
     # changing status of the task
@@ -65,6 +71,6 @@ class Item
     end
 
     def print_task
-        "#{('"' + @description + '"').ljust(30, " ")} Completed: #{ completed? ? "*done*" : "*not done*"}"
+        "#{('"' + @description + '"').ljust(26, " ")} Completed: #{ (completed? ? "*done*" : "not done").ljust(15, " ")} Priority: #{@priority}"
     end
 end

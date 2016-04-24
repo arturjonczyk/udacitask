@@ -1,13 +1,13 @@
 require_relative 'todolist.rb'
 
 # Creates a new todo list
-list = TodoList.new("Things to learn")
+list = TodoList.new("Shopping list:")
 
 # Add four new items
-list.add_item("Variables")
-list.add_item("Arrays")
-list.add_item("Hashes")
-list.add_item("Classes")
+list.add_item("Buy coffee")
+list.add_item("Send a letter to Mary")
+list.add_item("Check invoices")
+list.add_item("Finish the Udacitask")
 
 # Print the list
 list.print_items
