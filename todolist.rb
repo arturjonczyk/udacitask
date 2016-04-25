@@ -48,9 +48,9 @@ class TodoList
 
     # printing well formated title of the todo list
     def print_formated_list_title
-        puts '-' * @title.length
+        puts '-' * 44
         puts @title
-        puts '-' * @title.length
+        puts '-' * 44
     end
 
     # printing title of the list and every task
@@ -93,5 +93,40 @@ class Item
 
     def print_task
         "#{('"' + @description + '"').ljust(26, " ")} Completed: #{ (completed? ? "*done*" : "not done").ljust(15, " ")} Priority: #{@priority}"
+    end
+end
+
+
+class User
+    attr_reader :name, :lists
+
+    def initialize(name)
+        @name = name.capitalize
+        @lists = []
+    end
+
+    # add new todo list to the user's lists
+    def add_new_list(list_name)
+        @lists << TodoList.new(list_name)
+    end
+
+    # print list details (all tasks in the list)
+    def print_user_list_details(index)
+        @lists[index - 1].print_items
+    end
+
+    def print_user_name
+        puts "*" * 44
+        puts "#{@name}'s Lists:".center(44)
+        puts "*" * 44
+    end
+
+    # print user's lists without details
+    def print_user_lists
+        print_user_name
+
+        @lists.each_with_index do |list, index|
+            puts "#{index + 1}: Title: #{('"' + list.title + '"').ljust(15, " ")} Nr. of tasks: #{list.items.length}"
+        end
     end
 end
